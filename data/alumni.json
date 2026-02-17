@@ -1,0 +1,170 @@
+[
+  {
+    "id": "alumni-001",
+    "name": "Fahim Karim",
+    "role": "Alumnus",
+    "program": "MS in Computer Science",
+    "graduationYear": 2023,
+    "currentPosition": "Machine Learning Engineer",
+    "institution": "ExampleCorp",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/fahim-karim",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/fahim-karim"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/fahimkarim"
+      }
+    ],
+    "bio": "Contributes to community mentoring and internship prep sessions.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-002",
+    "name": "Nadia Islam",
+    "role": "Alumna",
+    "program": "MS in Information Technology",
+    "graduationYear": 2022,
+    "currentPosition": "Cloud Engineer",
+    "institution": "Accenture",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/nadia-islam",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/nadia-islam"
+      }
+    ],
+    "bio": "Guides junior students on certification pathways.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-003",
+    "name": "Tanvir Hasan",
+    "role": "Alumnus",
+    "program": "PhD in Electrical Engineering",
+    "graduationYear": 2021,
+    "currentPosition": "Research Scientist",
+    "institution": "National Lab Systems",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/tanvir-hasan",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/tanvir-hasan"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://tanvir-hasan.dev"
+      }
+    ],
+    "bio": "Supports technical workshops for BSA@UTSA.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-004",
+    "name": "Maliha Chowdhury",
+    "role": "Alumna",
+    "program": "MS in Business Analytics",
+    "graduationYear": 2024,
+    "currentPosition": "Data Analyst",
+    "institution": "USAA",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/maliha-chowdhury",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/maliha-chowdhury"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/malihac"
+      }
+    ],
+    "bio": "Mentors students for analytics interview prep.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-005",
+    "name": "Shadman Latif",
+    "role": "Alumnus",
+    "program": "MS in Mechanical Engineering",
+    "graduationYear": 2020,
+    "currentPosition": "Product Development Engineer",
+    "institution": "Tesla",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/shadman-latif",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/shadman-latif"
+      }
+    ],
+    "bio": "Frequently speaks at alumni career panels.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-006",
+    "name": "Lima Saha",
+    "role": "Alumna",
+    "program": "MS in Public Health",
+    "graduationYear": 2021,
+    "currentPosition": "Program Coordinator",
+    "institution": "Texas Health Collaborative",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/lima-saha",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/lima-saha"
+      }
+    ],
+    "bio": "Supports student wellbeing and outreach programs.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-007",
+    "name": "Riham Chowdhury",
+    "role": "Alumna",
+    "program": "MS in Cyber Security",
+    "graduationYear": 2025,
+    "currentPosition": "Security Analyst",
+    "institution": "Deloitte",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/riham-chowdhury",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/riham-chowdhury"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/rihamc"
+      }
+    ],
+    "bio": "Helps students prepare for security internships.",
+    "isPublic": true
+  },
+  {
+    "id": "alumni-008",
+    "name": "Nazmus Sakib",
+    "role": "Alumnus",
+    "program": "MS in Civil Engineering",
+    "graduationYear": 2024,
+    "currentPosition": "Project Engineer",
+    "institution": "AECOM",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "linkedinUrl": "https://linkedin.com/in/nazmus-sakib",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/nazmus-sakib"
+      }
+    ],
+    "bio": "Supports alumni networking and professional development.",
+    "isPublic": true
+  }
+]

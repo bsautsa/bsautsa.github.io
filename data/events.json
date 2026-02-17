@@ -1,0 +1,37 @@
+[
+  {
+    "id": "event-2026-01",
+    "slug": "spring-cultural-night-2026",
+    "title": "Spring Cultural Night 2026",
+    "description": "A night of Bangladeshi culture, music, and student networking.",
+    "startDate": "2026-03-20",
+    "endDate": "2026-03-20",
+    "location": "UTSA Student Union Ballroom",
+    "registrationUrl": "https://forms.gle/example-registration",
+    "coverImage": "/images/events/cultural-night.jpg",
+    "gallery": [
+      "/images/events/cultural-night-1.jpg",
+      "/images/events/cultural-night-2.jpg"
+    ],
+    "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "isFeatured": true,
+    "status": "upcoming"
+  },
+  {
+    "id": "event-2025-02",
+    "slug": "welcome-orientation-fall-2025",
+    "title": "Welcome Orientation Fall 2025",
+    "description": "Orientation for incoming students with practical guidance on academics, housing, and campus life.",
+    "startDate": "2025-08-22",
+    "endDate": "2025-08-22",
+    "location": "UTSA Main Campus",
+    "registrationUrl": "https://forms.gle/example-orientation",
+    "coverImage": "/images/events/orientation.jpg",
+    "gallery": [
+      "/images/events/orientation-1.jpg"
+    ],
+    "videoUrl": "",
+    "isFeatured": false,
+    "status": "past"
+  }
+]

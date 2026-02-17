@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { canonicalUrl, eventsData, formatDate } from "@/utils/content";
+
+export function getStaticPaths() {
+  return eventsData.map((event) => ({ params: { slug: event.slug }, props: { event } }));
+}
+
+const { event } = Astro.props;
+const eventJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: event.title,
+  startDate: event.startDate,
+  endDate: event.endDate,
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  eventStatus: event.status === "upcoming" ? "https://schema.org/EventScheduled" : "https://schema.org/EventCompleted",
+  location: {
+    "@type": "Place",
+    name: event.location,
+    address: "One UTSA Circle, San Antonio, TX 78249"
+  },
+  image: [canonicalUrl(event.coverImage)],
+  organizer: {
+    "@type": "Organization",
+    name: "Bangladeshi Students Association at UTSA"
+  }
+};
+---
+<BaseLayout
+  title={`${event.title} | BSA@UTSA`}
+  description={event.description}
+  canonicalPath={`/events/${event.slug}`}
+  image={event.coverImage}
+  jsonLd={eventJsonLd}
+>
+  <article class="card">
+    <h1>{event.title}</h1>
+    <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={event.coverImage} alt={event.title} />
+    <p>{event.description}</p>
+    <p class="small">Date: {formatDate(event.startDate)}</p>
+    <p class="small">Location: {event.location}</p>
+    <p><a href={event.registrationUrl} target="_blank" rel="noreferrer">Registration form</a></p>
+
+    {event.videoUrl && (
+      <p>
+        <a href={event.videoUrl} target="_blank" rel="noreferrer">Watch event video</a>
+      </p>
+    )}
+
+    <h2>Event Gallery</h2>
+    <div class="grid grid-3">
+      {event.gallery.map((photo) => <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={photo} alt={event.title} loading="lazy" />)}
+    </div>
+  </article>
+</BaseLayout>

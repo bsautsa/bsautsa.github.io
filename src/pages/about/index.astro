@@ -1,0 +1,40 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { sakibData, siteData } from "@/utils/content";
+---
+<BaseLayout
+  title="About | BSA@UTSA"
+  description="About BSA@UTSA, constitution, contact details, and digital platform leadership."
+  canonicalPath="/about"
+>
+  <section>
+    <h1>About BSA@UTSA</h1>
+    <p>
+      BSA@UTSA supports Bangladeshi students through cultural engagement, professional growth,
+      and peer support. We organize academic, social, and career-focused events throughout the year.
+    </p>
+
+    <h2>Constitution and Bylaws</h2>
+    <p><a href="/documents/constitution-and-bylaws.md">View Constitution and Bylaws</a></p>
+
+    <h2>Campus Location</h2>
+    <iframe
+      src={siteData.mapsEmbedUrl}
+      title="UTSA Map"
+      width="100%"
+      height="350"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      style="border:0;border-radius:12px"
+    ></iframe>
+
+    <h2>Web Platform and Digital Lead</h2>
+    <article class="card">
+      <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={sakibData.photo} alt={sakibData.name} style="max-width:220px;height:auto" />
+      <h3>{sakibData.name}</h3>
+      <p class="small">{sakibData.headline}</p>
+      <p>{sakibData.bio}</p>
+      <p><a href="/abu-noman-md-sakib">View full profile</a></p>
+    </article>
+  </section>
+</BaseLayout>

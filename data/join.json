@@ -1,0 +1,18 @@
+{
+  "newMemberFormUrl": "https://forms.gle/example-new-member",
+  "achievementFormUrl": "https://forms.gle/example-achievement",
+  "newStudentGuideSections": [
+    {
+      "title": "Housing",
+      "content": "Start searching 2-3 months early, compare commute times, and review lease terms carefully."
+    },
+    {
+      "title": "Banking and Credit",
+      "content": "Open a student-friendly checking account and learn responsible credit card usage."
+    },
+    {
+      "title": "Academic Setup",
+      "content": "Meet your advisor early, build a semester roadmap, and plan prerequisites."
+    }
+  ]
+}

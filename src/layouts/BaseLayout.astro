@@ -1,0 +1,80 @@
+---
+import "@/styles/global.css";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import { siteData, canonicalUrl } from "@/utils/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | null;
+}
+
+const {
+  title = siteData.siteName,
+  description = "Official site of Bangladeshi Students Association at UTSA.",
+  canonicalPath = "/",
+  image = "/images/hero-utsa.jpg",
+  noindex = false,
+  jsonLd = null
+} = Astro.props;
+
+const canonical = canonicalUrl(canonicalPath);
+const ogImage = image.startsWith("http") ? image : canonicalUrl(image);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script>
+      if (location.hostname.endsWith("github.io")) {
+        const target = `https://bsa.utsa.edu${location.pathname}${location.search}${location.hash}`;
+        location.replace(target);
+      }
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: siteData.siteName,
+      url: siteData.canonicalBaseUrl,
+      email: siteData.email,
+      address: siteData.address,
+      sameAs: siteData.socialLinks.map((x) => x.url)
+    })} />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+
+  <body>
+    <Nav />
+    <main class="container">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

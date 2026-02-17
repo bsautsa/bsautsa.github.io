@@ -1,0 +1,76 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { alumniData } from "@/utils/content";
+---
+<BaseLayout
+  title="Alumni | BSA@UTSA"
+  description="Alumni directory and professional achievements from BSA@UTSA community members."
+  canonicalPath="/alumni"
+>
+  <section>
+    <div class="section-title">
+      <h1>Alumni</h1>
+      <p class="small">{alumniData.length} profiles</p>
+    </div>
+    <p class="section-subtitle">Image, name, position, institution/company/organization, and profile links.</p>
+
+    <div class="grid grid-3">
+      {alumniData.map((person) => {
+        const links = person.links?.length
+          ? person.links
+          : (person.linkedinUrl ? [{ label: "LinkedIn", url: person.linkedinUrl }] : []);
+
+        const iconType = (url: string, label: string) => {
+          const low = url.toLowerCase();
+          const lowLabel = (label ?? "").toLowerCase();
+          if (low.includes("linkedin.com")) return "in";
+          if (low.includes("github.com")) return "gh";
+          if (low.startsWith("mailto:")) return "@";
+          if (lowLabel.includes("portfolio") || lowLabel.includes("website")) return "web";
+          return "web";
+        };
+
+        return (
+          <article class="card alumni-card">
+            <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={person.photo} alt={person.name} loading="lazy" />
+            <h3>{person.name}</h3>
+            <p class="small"><strong>{person.currentPosition ?? person.role ?? "Alumnus"}</strong></p>
+            <p class="small">{person.institution ?? person.program}</p>
+
+            {links.length > 0 && (
+              <div class="alumni-links">
+                {links.map((link) => (
+                  <a href={link.url} target="_blank" rel="noreferrer" class="alumni-link-chip">
+                    <span class="alumni-link-icon" aria-hidden="true">
+                      {iconType(link.url, link.label) === "in" && (
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.56A1.96 1.96 0 0 0 5.2 3 1.96 1.96 0 0 0 3.25 4.94 1.96 1.96 0 0 0 5.2 6.9c1.08 0 1.96-.88 1.96-1.96ZM20.75 13.4c0-3.44-1.83-5.04-4.27-5.04-1.97 0-2.85 1.08-3.34 1.84V8.5H9.76c.05 1.13 0 11.5 0 11.5h3.38v-6.42c0-.34.03-.68.13-.92.27-.68.88-1.38 1.91-1.38 1.35 0 1.9 1.03 1.9 2.54V20H20.75v-6.6Z"></path>
+                        </svg>
+                      )}
+                      {iconType(link.url, link.label) === "gh" && (
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56l-.01-1.97c-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.69.08-.69 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.71 1.25 3.37.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.5.11-3.13 0 0 .98-.32 3.2 1.18a11.2 11.2 0 0 1 5.82 0c2.22-1.5 3.2-1.18 3.2-1.18.63 1.63.23 2.83.11 3.13.75.81 1.2 1.84 1.2 3.1 0 4.41-2.68 5.39-5.24 5.67.41.35.78 1.05.78 2.12l-.01 3.14c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path>
+                        </svg>
+                      )}
+                      {iconType(link.url, link.label) === "@" && (
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9c2.18 0 4.18-.77 5.75-2.05l-1.3-1.55A6.96 6.96 0 0 1 12 19a7 7 0 1 1 7-7v1.08c0 .5-.4.92-.9.92-.4 0-.75-.25-.87-.61l-.11-.32A4 4 0 1 0 16 15.5c.45.33 1 .5 1.6.5A2.4 2.4 0 0 0 20 13.58V12c0-4.97-4.03-9-9-9Zm0 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"></path>
+                        </svg>
+                      )}
+                      {iconType(link.url, link.label) === "web" && (
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.93 9h-3.02a15.5 15.5 0 0 0-1.16-5.02A8.03 8.03 0 0 1 19.93 11ZM12 4.05c.9 1.18 1.84 3.3 2.24 5.95H9.76c.4-2.65 1.34-4.77 2.24-5.95ZM4.07 13h3.02c.13 1.8.53 3.53 1.16 5.02A8.03 8.03 0 0 1 4.07 13Zm0-2A8.03 8.03 0 0 1 8.25 5.98 15.5 15.5 0 0 0 7.09 11H4.07ZM12 19.95c-.9-1.18-1.84-3.3-2.24-5.95h4.48c-.4 2.65-1.34 4.77-2.24 5.95ZM15.75 18.02A15.5 15.5 0 0 0 16.91 13h3.02a8.03 8.03 0 0 1-4.18 5.02Z"></path>
+                        </svg>
+                      )}
+                    </span>
+                    <span>{link.label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,157 @@
+---
+import { siteData } from "@/utils/content";
+
+const pathname = Astro.url.pathname;
+
+const links = [
+  ["Home", "/"],
+  ["News", "/news"],
+  ["Events", "/events"],
+  ["Members", "/members"],
+  ["Officers", "/officers"],
+  ["Alumni", "/alumni"],
+  ["Join Us", "/join"],
+  ["About", "/about"]
+];
+
+const isActive = (href: string) => {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+};
+---
+<header>
+  <div class="container nav-wrap">
+    <a class="brand" href="/">
+      <span class="brand-logo">BSA</span>
+      <span>{siteData.siteShortName}</span>
+    </a>
+
+    <nav aria-label="Main" class="main-nav">
+      <ul>
+        {links.map(([label, href]) => (
+          <li>
+            <a
+              href={href}
+              class:list={["nav-link", { active: isActive(href) }]}
+              aria-current={isActive(href) ? "page" : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button class="search-trigger" type="button" data-search-open aria-label="Open site search" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"></path>
+      </svg>
+      <span>Search</span>
+    </button>
+  </div>
+</header>
+
+<div class="search-overlay" data-search-overlay hidden>
+  <button class="search-overlay-backdrop" type="button" data-search-close aria-label="Close search"></button>
+  <div class="search-overlay-panel" role="dialog" aria-modal="true" aria-labelledby="global-search-title">
+    <div class="search-overlay-head">
+      <h2 id="global-search-title">Search BSA@UTSA</h2>
+      <button class="search-close" type="button" data-search-close aria-label="Close search">
+        Close
+      </button>
+    </div>
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"></path>
+      </svg>
+      <input id="global-search-input" type="search" placeholder="Search news, events, members, alumni..." />
+    </div>
+    <p class="small">Results appear as you type.</p>
+    <div class="search-results" id="global-search-results"></div>
+  </div>
+</div>
+
+<script>
+  const overlay = document.querySelector("[data-search-overlay]");
+  const panel = document.querySelector(".search-overlay-panel");
+  const backdrop = document.querySelector(".search-overlay-backdrop");
+  const openButton = document.querySelector("[data-search-open]");
+  const closeButtons = document.querySelectorAll("[data-search-close]");
+  const input = document.querySelector("#global-search-input");
+  const results = document.querySelector("#global-search-results");
+
+  let indexData = [];
+
+  const loadIndex = async () => {
+    if (indexData.length) return;
+    const response = await fetch("/search-index.json");
+    indexData = await response.json();
+  };
+
+  const renderResults = (query) => {
+    if (!results) return;
+    if (!query.trim()) {
+      results.innerHTML = '<p class="small">Start typing to search the website.</p>';
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const matches = indexData
+      .filter((item) => item.text.includes(q))
+      .slice(0, 12);
+
+    if (!matches.length) {
+      results.innerHTML = '<p class="small">No matching results found.</p>';
+      return;
+    }
+
+    results.innerHTML = matches
+      .map(
+        (item) =>
+          `<article class="search-result-item">
+            <p class="small">${item.type}</p>
+            <h3><a href="${item.url}">${item.title}</a></h3>
+            <p>${item.excerpt}</p>
+          </article>`
+      )
+      .join("");
+  };
+
+  const openOverlay = async () => {
+    if (!overlay || !openButton || !input) return;
+    overlay.hidden = false;
+    document.body.classList.add("search-open");
+    openButton.setAttribute("aria-expanded", "true");
+    await loadIndex();
+    renderResults(input.value);
+    input.focus();
+  };
+
+  const closeOverlay = () => {
+    if (!overlay || !openButton) return;
+    overlay.hidden = true;
+    document.body.classList.remove("search-open");
+    openButton.setAttribute("aria-expanded", "false");
+  };
+
+  if (overlay) overlay.hidden = true;
+
+  openButton?.addEventListener("click", openOverlay);
+  closeButtons.forEach((button) => button.addEventListener("click", closeOverlay));
+  input?.addEventListener("input", (event) => renderResults(event.target.value));
+  backdrop?.addEventListener("click", closeOverlay);
+
+  overlay?.addEventListener("click", (event) => {
+    if (!panel) return;
+    const target = event.target;
+    if (target instanceof Node && !panel.contains(target)) {
+      closeOverlay();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && overlay && !overlay.hidden) {
+      closeOverlay();
+    }
+  });
+</script>

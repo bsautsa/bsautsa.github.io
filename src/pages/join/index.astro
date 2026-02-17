@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { joinData } from "@/utils/content";
+---
+<BaseLayout
+  title="Join Us | BSA@UTSA"
+  description="Join BSA@UTSA, share achievements, and access the new student guide."
+  canonicalPath="/join"
+>
+  <section>
+    <h1>Join Us</h1>
+    <p>We welcome new students and members. Use the links below to get involved.</p>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <h2>New Member Form</h2>
+        <p class="small">Submit your basic profile to join the community directory and mailing list.</p>
+        <p><a href={joinData.newMemberFormUrl} target="_blank" rel="noreferrer">Open form</a></p>
+      </article>
+
+      <article class="card">
+        <h2>Achievement Submission</h2>
+        <p class="small">Share research, defense, publication, internship, and career achievements.</p>
+        <p><a href={joinData.achievementFormUrl} target="_blank" rel="noreferrer">Submit update</a></p>
+      </article>
+    </div>
+
+    <h2>New Student Guide</h2>
+    <div class="grid grid-3">
+      {joinData.newStudentGuideSections.map((section) => (
+        <article class="card">
+          <h3>{section.title}</h3>
+          <p>{section.content}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

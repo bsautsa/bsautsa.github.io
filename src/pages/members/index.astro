@@ -1,0 +1,70 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { membersData } from "@/utils/content";
+
+const parseEnrollmentTerm = (term: string) => {
+  const raw = (term ?? "").trim();
+  const m = raw.match(/(spring|summer|fall|winter)\s+(\d{4})/i);
+  if (!m) return { rank: -1, label: raw || "Unknown Term" };
+
+  const season = m[1].toLowerCase();
+  const year = Number.parseInt(m[2], 10);
+  const seasonOrder: Record<string, number> = { spring: 1, summer: 2, fall: 3, winter: 0 };
+  return { rank: year * 10 + (seasonOrder[season] ?? -1), label: `${season[0].toUpperCase()}${season.slice(1)} ${year}` };
+};
+
+const termGroups = [...new Set(membersData.map((item) => (item.enrollmentTerm ?? "").trim() || "Unknown Term"))]
+  .sort((a, b) => parseEnrollmentTerm(b).rank - parseEnrollmentTerm(a).rank)
+  .map((term) => ({
+    term,
+    label: parseEnrollmentTerm(term).label,
+    members: membersData
+      .filter((item) => ((item.enrollmentTerm ?? "").trim() || "Unknown Term") === term)
+      .sort((a, b) => a.name.localeCompare(b.name))
+  }));
+
+const parseProgramFallback = (program: string) => {
+  const raw = (program ?? "").trim();
+  const m = raw.match(/^(PhD|MS|Undergrad|Undergraduate)\s+in\s+(.+)$/i);
+  if (!m) return { academicLevel: "Member", subject: raw || "N/A" };
+  const lvl = m[1].toLowerCase().startsWith("under") ? "Undergrad" : m[1].toUpperCase();
+  return { academicLevel: lvl, subject: m[2].trim() };
+};
+---
+<BaseLayout
+  title="Members | BSA@UTSA"
+  description="Public directory of current BSA@UTSA student members."
+  canonicalPath="/members"
+>
+  <section>
+    <div class="section-title">
+      <h1>Members by Enrollment Term</h1>
+      <p class="small">{membersData.length} members</p>
+    </div>
+    <p class="section-subtitle">Organized by intake term (Fall/Spring by year).</p>
+
+    {termGroups.map((group, idx) => (
+      <details class="term-accordion" open={idx === 0}>
+        <summary class="term-heading">
+          <h2>{group.label}</h2>
+          <span class="term-count">{group.members.length} profiles</span>
+        </summary>
+
+        <div class="grid grid-3">
+          {group.members.map((member) => (
+            <article class="card member-compact">
+              <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={member.photo} alt={member.name} loading="lazy" />
+              <h3>{member.name}</h3>
+              <p class="small">
+                <strong>{member.academicLevel ?? parseProgramFallback(member.program).academicLevel}</strong>
+              </p>
+              <p class="small">
+                {member.subject ?? parseProgramFallback(member.program).subject}
+              </p>
+            </article>
+          ))}
+        </div>
+      </details>
+    ))}
+  </section>
+</BaseLayout>

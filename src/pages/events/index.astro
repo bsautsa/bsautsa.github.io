@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { eventsData, formatDate } from "@/utils/content";
+
+const upcoming = eventsData.filter((event) => event.status === "upcoming");
+const past = eventsData.filter((event) => event.status === "past");
+---
+<BaseLayout
+  title="Events | BSA@UTSA"
+  description="Upcoming and past events organized by BSA@UTSA."
+  canonicalPath="/events"
+>
+  <section>
+    <h1>Events</h1>
+    <p class="small">Culture, networking, academic growth, and community gatherings.</p>
+
+    <h2>Upcoming Events</h2>
+    <div class="grid grid-3">
+      {upcoming.map((event) => (
+        <article class="card">
+          <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={event.coverImage} alt={event.title} loading="lazy" />
+          <h3><a href={`/events/${event.slug}`}>{event.title}</a></h3>
+          <p>{event.description}</p>
+          <p class="small">{formatDate(event.startDate)} | {event.location}</p>
+          <p><a href={event.registrationUrl} target="_blank" rel="noreferrer">Register</a></p>
+        </article>
+      ))}
+    </div>
+
+    <h2>Past Events</h2>
+    <div class="grid grid-3">
+      {past.map((event) => (
+        <article class="card">
+          <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={event.coverImage} alt={event.title} loading="lazy" />
+          <h3><a href={`/events/${event.slug}`}>{event.title}</a></h3>
+          <p>{event.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

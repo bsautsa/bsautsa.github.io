@@ -1,0 +1,22 @@
+{
+  "slug": "abu-noman-md-sakib",
+  "name": "Abu Noman Md Sakib",
+  "headline": "Ph.D. Student in Computer Science at UTSA",
+  "bio": "Abu Noman Md Sakib is a Ph.D. student in Computer Science at The University of Texas at San Antonio (UTSA), advised by Dr. Zijie J. Wang. His research interests include secure and trustworthy machine learning, computer vision, and AI safety, with current work on safety in large language and multimodal models, robustness and privacy in machine learning, backdoor attack/defense, federated learning, and LLM agent workflows.",
+  "photo": "/images/people/abu-noman-md-sakib.png",
+  "affiliation": "University of Texas at San Antonio",
+  "sameAs": [
+    "https://anmspro.github.io/",
+    "https://github.com/anmspro"
+  ],
+  "highlights": [
+    "Ph.D. student in Computer Science at UTSA",
+    "Advised by Dr. Zijie J. Wang",
+    "Research focus: secure and trustworthy ML, computer vision, and AI safety"
+  ],
+  "seo": {
+    "title": "Abu Noman Md Sakib | BSA@UTSA",
+    "description": "Profile of Abu Noman Md Sakib, Ph.D. student in Computer Science at UTSA and website architect for BSA@UTSA.",
+    "ogImage": "/images/people/abu-noman-md-sakib.png"
+  }
+}

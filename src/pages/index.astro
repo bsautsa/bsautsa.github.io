@@ -1,0 +1,108 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { eventsData, newsData, siteData } from "@/utils/content";
+
+const featuredEvent = eventsData.find((event) => event.isFeatured) ?? eventsData[0];
+const upcomingEvents = eventsData.filter((event) => event.status === "upcoming").slice(0, 3);
+const recentNews = newsData.slice(0, 3);
+---
+<BaseLayout
+  title={`${siteData.siteShortName} | ${siteData.siteName}`}
+  description="Official BSA@UTSA website with events, news, member profiles, and community resources."
+  canonicalPath="/"
+>
+  <section class="hero">
+    <span class="pill">UTSA Community Platform</span>
+    <h1>{siteData.siteName}</h1>
+    <p>{siteData.tagline}</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/join">Join the Community</a>
+      <a class="btn btn-outline" href="/events">View Upcoming Events</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat-box">
+        <strong>{eventsData.length}+</strong>
+        <span>Events listed</span>
+      </div>
+      <div class="stat-box">
+        <strong>{newsData.length}+</strong>
+        <span>News stories</span>
+      </div>
+      <div class="stat-box">
+        <strong>UTSA</strong>
+        <span>San Antonio, Texas</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="notice-banner">
+    Contact us at <a href={`mailto:${siteData.email}`}>{siteData.email}</a> for collaborations, sponsorships, and student support resources.
+  </div>
+
+  {featuredEvent && (
+    <section>
+      <div class="section-title">
+        <h2>Featured Event</h2>
+        <a href="/events">All events</a>
+      </div>
+      <p class="section-subtitle">Highlighted program currently promoted by BSA@UTSA.</p>
+      <div class="featured-split">
+        <article class="card">
+          <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={featuredEvent.coverImage} alt={featuredEvent.title} />
+          <h3>{featuredEvent.title}</h3>
+          <p>{featuredEvent.description}</p>
+          <p class="small">Location: {featuredEvent.location}</p>
+          <p>
+            <a href={`/events/${featuredEvent.slug}`}>Event details</a>
+            {" | "}
+            <a href={featuredEvent.registrationUrl} target="_blank" rel="noreferrer">Register now</a>
+          </p>
+        </article>
+
+        <aside class="card">
+          <h3>Why Attend</h3>
+          <p class="small">Build meaningful connections with students, researchers, and alumni from diverse programs.</p>
+          <p class="small">Gain practical guidance on academics, careers, and life in San Antonio.</p>
+          <p class="small">Celebrate language, heritage, and shared cultural experiences.</p>
+          <a class="btn btn-primary" href="/join" style="margin-top:0.5rem">Become a Member</a>
+        </aside>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="section-title">
+      <h2>Upcoming Events</h2>
+      <a href="/events">View timeline</a>
+    </div>
+    <p class="section-subtitle">Workshops, orientations, cultural nights, and networking sessions.</p>
+    <div class="grid grid-3">
+      {upcomingEvents.map((event) => (
+        <article class="card">
+          <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={event.coverImage} alt={event.title} loading="lazy" />
+          <h3><a href={`/events/${event.slug}`}>{event.title}</a></h3>
+          <p>{event.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Latest News</h2>
+      <a href="/news">Browse news</a>
+    </div>
+    <p class="section-subtitle">Member achievements, defenses, conference highlights, and career milestones.</p>
+    <div class="grid grid-3">
+      {recentNews.map((item) => (
+        <article class="card">
+          <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={item.coverImage} alt={item.title} loading="lazy" />
+          <h3><a href={`/news/${item.slug}`}>{item.title}</a></h3>
+          <p>{item.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

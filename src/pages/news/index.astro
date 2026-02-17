@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { newsData, formatDate } from "@/utils/content";
+---
+<BaseLayout
+  title="News | BSA@UTSA"
+  description="Academic and professional achievements from BSA@UTSA members."
+  canonicalPath="/news"
+>
+  <section class="section-title">
+    <h1>News</h1>
+    <p class="small">Community updates, achievements, and milestones</p>
+  </section>
+
+  <div class="grid grid-3">
+    {newsData.map((item) => (
+      <article class="card">
+        <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={item.coverImage} alt={item.title} loading="lazy" />
+        <p class="small">{formatDate(item.publishedAt)}</p>
+        <h2><a href={`/news/${item.slug}`}>{item.title}</a></h2>
+        <p>{item.summary}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

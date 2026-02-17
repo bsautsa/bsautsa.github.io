@@ -1,0 +1,41 @@
+[
+  {
+    "id": "news-2026-01",
+    "slug": "utsa-phd-defense-celebration",
+    "title": "BSA Celebrates a Successful PhD Defense",
+    "summary": "Our community congratulates one of our doctoral members on a successful dissertation defense at UTSA.",
+    "content": "The BSA@UTSA community gathered to celebrate a major academic milestone. Members shared mentorship stories, research insights, and guidance for incoming graduate students.",
+    "coverImage": "/images/news/defense-celebration.jpg",
+    "gallery": [
+      "/images/news/defense-celebration-1.jpg",
+      "/images/news/defense-celebration-2.jpg"
+    ],
+    "publishedAt": "2026-01-10",
+    "author": "BSA Media Team",
+    "tags": ["PhD", "Achievement", "UTSA"],
+    "seo": {
+      "title": "UTSA PhD Defense Celebration | BSA@UTSA",
+      "description": "BSA@UTSA celebrates a successful PhD defense with faculty and students.",
+      "ogImage": "/images/news/defense-celebration.jpg"
+    }
+  },
+  {
+    "id": "news-2026-02",
+    "slug": "new-job-placement-data-science",
+    "title": "Member Lands Data Science Role",
+    "summary": "A BSA member accepted a data science role after completing their UTSA program.",
+    "content": "BSA continues to support career growth through peer coaching, resume circles, and referral networks. This latest placement reflects our members' preparation and collaboration.",
+    "coverImage": "/images/news/job-placement.jpg",
+    "gallery": [
+      "/images/news/job-placement-1.jpg"
+    ],
+    "publishedAt": "2026-01-25",
+    "author": "BSA Career Committee",
+    "tags": ["Career", "Placement", "Data Science"],
+    "seo": {
+      "title": "BSA Member Career Success | BSA@UTSA",
+      "description": "BSA member secures a new data science role after graduating from UTSA.",
+      "ogImage": "/images/news/job-placement.jpg"
+    }
+  }
+]

@@ -1,0 +1,47 @@
+---
+interface Person {
+  id: string;
+  name: string;
+  role?: string;
+  program: string;
+  term?: string;
+  graduationYear?: number;
+  currentPosition?: string;
+  photo: string;
+  linkedinUrl: string;
+  bio: string;
+}
+
+interface Props {
+  title: string;
+  people: Person[];
+}
+
+const { title, people } = Astro.props;
+---
+<section>
+  <div class="section-title">
+    <h1>{title}</h1>
+    <p class="small">{people.length} profiles</p>
+  </div>
+
+  <div class="grid grid-3">
+    {people.map((person) => (
+      <article class="card">
+        <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={person.photo} alt={person.name} loading="lazy" />
+        <h2>{person.name}</h2>
+        {person.role && <p class="small"><strong>{person.role}</strong></p>}
+        {person.term && <p class="small">Term: {person.term}</p>}
+        <p class="small">{person.program}</p>
+        {person.graduationYear && <p class="small">Graduation: {person.graduationYear}</p>}
+        {person.currentPosition && <p class="small">Now: {person.currentPosition}</p>}
+        <p>{person.bio}</p>
+        <p class="small">
+          <a href={person.linkedinUrl} target="_blank" rel="noreferrer">
+            {person.linkedinUrl.includes("linkedin.com") ? "LinkedIn" : "Profile"}
+          </a>
+        </p>
+      </article>
+    ))}
+  </div>
+</section>

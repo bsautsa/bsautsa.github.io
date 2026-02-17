@@ -1,0 +1,110 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { officersData } from "@/utils/content";
+
+const rolePriority = [
+  "President",
+  "Vice President",
+  "Secretary",
+  "Joint Secretary",
+  "Treasurer",
+  "Assistant Treasurer",
+  "Cultural Secretary and Program Coordinator",
+  "Cultural Secretary",
+  "Communication Secretary (Social Media)",
+  "Photographer",
+  "Advisor"
+];
+
+const scoreRole = (role: string) => {
+  const index = rolePriority.findIndex((priority) => role === priority || role.startsWith(priority));
+  return index === -1 ? 999 : index;
+};
+
+const visibleOfficers = officersData.filter((item) => !(item.role ?? "").toLowerCase().includes("advisor"));
+
+const terms = [...new Set(visibleOfficers.map((item) => item.term ?? "Unknown"))].sort((a, b) => {
+  const aYear = Number.parseInt((a ?? "").match(/\d{4}/)?.[0] ?? "0", 10);
+  const bYear = Number.parseInt((b ?? "").match(/\d{4}/)?.[0] ?? "0", 10);
+  return bYear - aYear;
+});
+
+const groupedByTerm = terms.map((term) => {
+  const pinnedName = "Abu Noman Md Sakib";
+  const group = visibleOfficers.filter((item) => (item.term ?? "Unknown") === term);
+  const peopleMap = new Map<
+    string,
+    {
+      id: string;
+      name: string;
+      roles: Set<string>;
+      program: string;
+      photo: string;
+      linkedinUrl: string;
+      bio: string;
+    }
+  >();
+
+  for (const officer of group) {
+    const existing = peopleMap.get(officer.name);
+    if (existing) {
+      existing.roles.add(officer.role ?? "Committee Member");
+    } else {
+      peopleMap.set(officer.name, {
+        id: officer.id,
+        name: officer.name,
+        roles: new Set([officer.role ?? "Committee Member"]),
+        program: officer.program,
+        photo: officer.photo,
+        linkedinUrl: officer.linkedinUrl,
+        bio: officer.bio
+      });
+    }
+  }
+
+  const people = [...peopleMap.values()]
+    .map((person) => ({ ...person, roles: [...person.roles].sort((a, b) => scoreRole(a) - scoreRole(b)) }))
+    .sort((a, b) => {
+      const aPinned = a.name === pinnedName;
+      const bPinned = b.name === pinnedName;
+      if (aPinned && !bPinned) return -1;
+      if (!aPinned && bPinned) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+  return { term, people };
+});
+
+---
+<BaseLayout
+  title="Officers | BSA@UTSA"
+  description="Executive committee and leadership profiles for BSA@UTSA."
+  canonicalPath="/officers"
+>
+  <section>
+    <div class="section-title">
+      <h1>Officers by Committee Term</h1>
+      <p class="small">{visibleOfficers.length} role records</p>
+    </div>
+    <p class="section-subtitle">Organized by committee year and name.</p>
+
+    {groupedByTerm.map((termGroup, idx) => (
+      <details class="term-accordion" open={idx === 0}>
+        <summary class="term-heading">
+          <h2>Executive Committee - {termGroup.term}</h2>
+          <span class="term-count">{termGroup.people.length} members</span>
+        </summary>
+
+        <div class="grid grid-3">
+          {termGroup.people.map((person) => (
+            <article class="card officer-compact">
+              <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={person.photo} alt={person.name} loading="lazy" />
+              <h3>{person.name}</h3>
+              <p class="small"><strong>{person.roles.join(" • ")}</strong></p>
+            </article>
+          ))}
+        </div>
+      </details>
+    ))}
+  </section>
+</BaseLayout>

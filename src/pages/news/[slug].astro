@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { newsData, canonicalUrl, formatDate } from "@/utils/content";
+
+export function getStaticPaths() {
+  return newsData.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: item.title,
+  datePublished: item.publishedAt,
+  author: {
+    "@type": "Organization",
+    name: item.author
+  },
+  image: [canonicalUrl(item.coverImage)],
+  publisher: {
+    "@type": "Organization",
+    name: "Bangladeshi Students Association at UTSA"
+  }
+};
+---
+<BaseLayout
+  title={item.seo.title}
+  description={item.seo.description}
+  image={item.seo.ogImage}
+  canonicalPath={`/news/${item.slug}`}
+  jsonLd={articleJsonLd}
+>
+  <article class="card">
+    <p class="small">{formatDate(item.publishedAt)} | {item.author}</p>
+    <h1>{item.title}</h1>
+    <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={item.coverImage} alt={item.title} />
+    <p>{item.content}</p>
+
+    <h2>Photo Highlights</h2>
+    <div class="grid grid-3">
+      {item.gallery.map((photo) => <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={photo} alt={item.title} loading="lazy" />)}
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,47 @@
+{
+  "siteName": "Bangladeshi Students Association at UTSA",
+  "siteShortName": "BSA@UTSA",
+  "tagline": "Community, Culture, and Academic Excellence",
+  "canonicalBaseUrl": "https://bsa.utsa.edu",
+  "mirrorUrls": [
+    "https://bsa-utsa.github.io"
+  ],
+  "email": "bsa@utsa.edu",
+  "phone": "+1 (210) 000-0000",
+  "address": "One UTSA Circle, San Antonio, TX 78249",
+  "mapsEmbedUrl": "https://www.google.com/maps?q=University+of+Texas+at+San+Antonio&output=embed",
+  "socialLinks": [
+    {
+      "label": "Facebook",
+      "url": "https://facebook.com/bsautsa"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://instagram.com/bsautsa"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/company/bsautsa"
+    }
+  ],
+  "developerCredit": {
+    "name": "Abu Noman Md Sakib",
+    "role": "Ph.D. Student and Website Architect",
+    "bioShort": "Ph.D. student in Computer Science at UTSA and developer of the BSA@UTSA web platform.",
+    "photo": "/images/people/abu-noman-md-sakib.png",
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://anmspro.github.io/"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/anmspro"
+      },
+      {
+        "label": "Email",
+        "url": "mailto:abunomanmd.sakib@gmail.com"
+      }
+    ]
+  }
+}

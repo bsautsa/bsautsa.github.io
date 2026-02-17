@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+<BaseLayout
+  title="Search | BSA@UTSA"
+  description="Search news, events, members, officers, and alumni at BSA@UTSA."
+  canonicalPath="/search"
+>
+  <section>
+    <h1>Search</h1>
+    <p class="small">Search across all public website content.</p>
+    <input id="query" type="search" placeholder="Type a name, event, or keyword" style="width:100%;max-width:520px" />
+
+    <div id="results" class="grid grid-3" style="margin-top:1rem"></div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const initial = params.get("q") || "";
+
+    const input = document.getElementById("query");
+    const container = document.getElementById("results");
+    input.value = initial;
+
+    const render = (items, query) => {
+      container.innerHTML = "";
+      if (!query.trim()) {
+        container.innerHTML = '<p class="small">Enter a search query to see results.</p>';
+        return;
+      }
+      if (!items.length) {
+        container.innerHTML = '<p class="small">No matching content found.</p>';
+        return;
+      }
+      for (const item of items) {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `<p class="small">${item.type}</p><h2><a href="${item.url}">${item.title}</a></h2><p>${item.excerpt}</p>`;
+        container.appendChild(card);
+      }
+    };
+
+    let index = [];
+    fetch("/search-index.json")
+      .then((res) => res.json())
+      .then((data) => {
+        index = data;
+        const run = () => {
+          const query = input.value.toLowerCase();
+          const items = index.filter((item) => item.text.includes(query)).slice(0, 30);
+          render(items, query);
+        };
+        run();
+        input.addEventListener("input", run);
+      });
+  </script>
+</BaseLayout>

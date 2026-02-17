@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { canonicalUrl, sakibData } from "@/utils/content";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: sakibData.name,
+  jobTitle: sakibData.headline,
+  image: canonicalUrl(sakibData.photo),
+  affiliation: {
+    "@type": "Organization",
+    name: sakibData.affiliation
+  },
+  sameAs: sakibData.sameAs,
+  description: sakibData.bio,
+  url: canonicalUrl("/abu-noman-md-sakib")
+};
+---
+<BaseLayout
+  title={sakibData.seo.title}
+  description={sakibData.seo.description}
+  canonicalPath="/abu-noman-md-sakib"
+  image={sakibData.seo.ogImage}
+  jsonLd={personJsonLd}
+>
+  <article class="card">
+    <h1>{sakibData.name}</h1>
+    <p class="small">{sakibData.headline}</p>
+    <img onerror="this.onerror=null;this.src='/images/placeholders/dummy-image.svg';" src={sakibData.photo} alt={sakibData.name} style="max-width:260px;height:auto" />
+    <p>{sakibData.bio}</p>
+
+    <h2>Contributions</h2>
+    <ul>
+      {sakibData.highlights.map((item) => <li>{item}</li>)}
+    </ul>
+
+    <h2>Profiles</h2>
+    <p>
+      {sakibData.sameAs.map((url) => (
+        <span><a href={url} target="_blank" rel="noreferrer">{url}</a><br /></span>
+      ))}
+    </p>
+  </article>
+</BaseLayout>

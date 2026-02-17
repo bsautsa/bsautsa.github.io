@@ -1,0 +1,22 @@
+{
+  "name": "bsa-utsa-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "validate:content": "node ./scripts/validate-content.mjs",
+    "content:add": "python3 ./scripts/content-helper.py",
+    "content:import": "python3 ./scripts/import-sheet.py"
+  },
+  "dependencies": {
+    "astro": "^5.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
