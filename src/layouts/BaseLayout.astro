@@ -50,13 +50,6 @@ const ogImage = image.startsWith("http") ? image : canonicalUrl(image);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <script>
-      if (location.hostname.endsWith("github.io")) {
-        const target = `https://bsa.utsa.edu${location.pathname}${location.search}${location.hash}`;
-        location.replace(target);
-      }
-    </script>
-
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
