@@ -10,8 +10,8 @@ SEO-first static website for the BSA@UTSA.
 
 ## Domains
 
-- Canonical domain: `https://bsa.utsa.edu`
-- Mirror domain: GitHub Pages URL (configured in repository settings)
+- Canonical domain: `https://bsautsa.github.io`
+- Mirror domains: none (GitHub Pages is the primary domain)
 
 ## Local Setup
 
@@ -45,7 +45,7 @@ For step-by-step image and JSON examples, see `CONTENT_UPDATE_GUIDE.md`.
 
 ## Canonical SEO Rules
 
-- All pages set canonical URLs to `https://bsa.utsa.edu`.
+- All pages set canonical URLs to `https://bsautsa.github.io`.
 - `sitemap.xml` only emits canonical URLs.
 - `robots.txt` includes canonical sitemap URL.
 
